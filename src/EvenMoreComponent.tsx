@@ -1,3 +1,6 @@
+import { ReactElement, ReactNode, Requireable } from "react";
+import PropTypes from "prop-types"; // ES6
+
 export interface HeadingProps {
   title: string;
 }
@@ -5,14 +8,15 @@ export interface HeadingProps {
 export const EvenMoreComponent = ({ title }: HeadingProps) => {
   return <div> {title}</div>;
 };
-
-export function List<ListItem>({
+export type ListComponent = <ListItem>({
   items,
   render,
 }: {
   items: ListItem[];
-  render: (item: ListItem) => JSX.Element;
-}) {
+  render: (item: ListItem) => ReactNode;
+}) => ReactElement;
+
+export const List: ListComponent = ({ items, render }) => {
   return (
     <div>
       <ul>
@@ -22,7 +26,8 @@ export function List<ListItem>({
       </ul>
     </div>
   );
-}
+};
+
 function TestComponent() {
   return (
     <div>
